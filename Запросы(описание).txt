@@ -1,0 +1,304 @@
+
+1. **Config Request (Запрос конфигурации)**:
+   - **URL**: `{{ hodler_base_url }}/config`
+   - **Метод**: GET
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+     - X-Device-ID: 44444555555555566666666666=60ef9f28-ebf0-4694-b0a5-06eb6d413a2f (выключен)
+   - **Описание**: Запрос информации о конфигурации. Содержит настроики, для выбора отображения стоимости монет в выбранной валюте на главной странице приложения .
+
+2. **Stock Chart Request (Запрос графика акции)**:
+   - **URL**: `{{ hodler_base_url }}/stocks/chart`
+   - **Метод**: GET
+   - **Параметры**:
+     - currency: EUR
+     - symbol: AAPL
+     - count: 30
+     - interval: 1d
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+   - **Описание**: Запрос графика акции. Принимает параметры, такие как символ акции, валюта, количество записей графика и временной интервал.
+
+3. **Exchanges Request (Запрос списка бирж)**:
+   - **URL**: `{{ hodler_base_url }}/stocks/exchanges`
+   - **Метод**: GET
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+   - **Описание**: Запрос списка бирж. Не принимает параметров. Нужен для фильтрации по биржам в запросе всех акций.
+
+4. **All Stocks Request (Запрос всех акций)**:
+   - **URL**: `{{ hodler_base_url }}/stocks`
+   - **Метод**: GET
+   - **Параметры**:
+     - offset: 0
+     - batch_size: 1000
+     - currency: USD
+     - type: stock
+     - order_by: market_cap
+     - order_type: desc
+     - exchange: all
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+   - **Описание**: Запрос списка всех акций. Принимает параметры для пагинации, сортировки и фильтрации.
+
+5. **Search Stocks Request (Запрос поиска акций)**:
+   - **URL**: `{{ hodler_base_url }}/stocks`
+   - **Метод**: GET
+   - **Параметры**:
+     - name: Micr
+     - currency: USD
+     - type: stock
+     - exchange: all
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+   - **Описание**: Запрос списка акций с использованием поискового запроса. Принимает параметры для поиска по названию, валюте и другим фильтрам.
+
+6. **Stock Price Request (Запрос текущих цен акций)**:
+   - **URL**: `{{ hodler_base_url }}/stocks/price`
+   - **Метод**: GET
+   - **Параметры**:
+     - symbols: AAPL,MSFT,GOOGL
+     - currency: USD
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+     - X-Device-ID: 7b89c280-6319-4b03-8115-c372e7d468fc
+   - **Описание**: Запрос текущих цен акций. Принимает параметры для получения цен по указанным символам акций и валюте.
+
+7. **All Coins Request (Запрос всех монет)**:
+   - **URL**: `{{ hodler_base_url }}/coins`
+   - **Метод**: GET
+   - **Параметры**:
+     - currency: USD
+     - batch_size: 1000
+     - offset: 0
+     - order_type: asc
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+   - **Описание**: Этот запрос запрашивает все доступные монеты в системе. Возвращает список монет с их основными параметрами, такими как название, символ и т.д.
+
+8. **Search Coins Request (Запрос поиска монет)**:
+   - **URL**: `{{ hodler_base_url }}/coins/find`
+   - **Метод**: GET
+   - **Параметры**:
+     - currency: USD
+     - name: RIO
+     - cg_id: bitcoin,ethereum (выключен)
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+   - **Описание**: Поиск монеты по имени. Возвращает информацию о монете с указанным именем.
+		
+9. **Coin Price Request (Запрос цены монеты)**:
+   - **URL**: `{{ hodler_base_url }}/coins/price`
+   - **Метод**: GET
+   - **Параметры**:
+     - ids: 6557310268867898675
+     - currency: USD
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+     - X-Device-ID: 7b89c280-6319-4b03-8115-c372e7d468fc
+   - **Описание**: Получение текущей цены для конкретной монеты в указанной валюте.
+
+10. **All Coins Prices Request (Запрос цен всех монет)**:
+   - **URL**: `{{ hodler_base_url }}/coins/price/all`
+   - **Метод**: GET
+   - **Параметры**:
+     - ids: 1,2 (выключен)
+     - currency: USD (выключен)
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+     - X-Device-ID: 7b89c280-6319-4b03-8115-c372e7d468fc
+   - **Описание**: Получение цен для всех монет в указанной валюте.
+
+11. **Coin Chart Daily Request (Запрос ежедневного графика монеты)**:
+   - **URL**: `{{ hodler_base_url }}/coins/chart`
+   - **Метод**: GET
+   - **Параметры**:
+     - id: -5222394359070698422
+     - currency: BTC
+     - interval: 1d
+     - count: 5000
+     - aggregate: (пусто)
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+     - X-Device-ID: 7b89c280-6319-4b03-8115-c372e7d468fc
+   - **Описание**: Получение данных для построения ежедневного графика изменения цены указанной монеты.
+
+12. **Coin Chart Hourly Request (Запрос почасового графика монеты)**:
+   - **URL**: `{{ hodler_base_url }}/coins/chart`
+   - **Метод**: GET
+   - **Параметры**:
+     - id: 8916
+     - currency: USD
+     - interval: 1h
+     - count: 100
+     - aggregate: 5 (выключен)
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+     - X-Device-ID: 7b89c280-6319-4b03-8115-c372e7d468fc
+   - **Описание**: Получение данных для построения почасового графика изменения цены указанной монеты.
+
+13. **Coin Chart 5 Minute Request (Запрос графика монеты за 5 минут)**:
+   - **URL**: `{{ hodler_base_url }}/coins/chart`
+   - **Метод**: GET
+   - **Параметры**:
+     - id: 6588426424454457843 (выключен)
+     - currency: USD
+     - interval: 5m
+     - count: 111
+     - aggregate: 3
+     - cg_id: bitcoin (выключен)
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+     - X-Device-ID: 7b89c280-6319-4b03-8115-c372e7d468fc
+   - **Описание**: Получение данных для построения графика изменения цены указанной монеты за каждые 5 минут.
+
+14. **Combined Coin Chart 5 Minute Request (Запрос объединенного графика монет за 5 минут)**:
+   - **URL**: `{{ hodler_base_url }}/coins/chart/combined`
+   - **Метод**: GET
+   - **Параметры**:
+     - ids: 1,1027
+     - currency: USD
+     - interval: 5m
+     - count: 300
+     - aggregate: 3
+     - cg_ids: bitcoin,capybara,ethereum,tether,solana,litecoin,dai,arbitrum,frax-share,iota,chiliz (выключен)
+   - **Заголовки**:
+     - X-Token: {{ hodler_api_token }}
+     - X-Device-ID: 7b89c280-6319-4b03-8115-c372e7d468fc
+   - **Описание**: Получение данных для построения объединенного графика изменения цены указанных монет за каждые 5 минут.
+
+15. **Coin info (CoinGecko)**
+   - **URL:** `https://api.coingecko.com/api/v3/coins/info`
+   - **Метод:** GET
+   - **Параметры:**
+     - `currency=USD`: Валюта (USD)
+     - `cg_id=bitcoin`: Идентификатор криптовалюты (Bitcoin)
+   - **Заголовки:**
+     - `X-Token`: Токен аутентификации (значение подставляется переменной)
+     - `X-Device-ID`: Идентификатор устройства
+   - **Описание:** Этот запрос возвращает информацию о криптовалюте Bitcoin в виде объекта JSON с подробными данными о монете, такими как описание, технические характеристики, платформа, на которой она работает, логотип и другие данные.
+
+16. **All coins (CoinGecko)**
+   - **URL:** `https://api.coingecko.com/api/v3/coins/list`
+   - **Метод:** GET
+   - **Параметры:** Отсутствуют
+   - **Заголовки:**
+     - `accept: application/json`
+   - **Описание:** Этот запрос возвращает список всех доступных криптовалют с их основными параметрами в формате JSON.
+
+17. **Coin (CoinGecko)**
+   - **URL:** `https://api.coingecko.com/api/v3/coins/cosmos`
+   - **Метод:** GET
+   - **Параметры:** Отсутствуют
+   - **Заголовки:**
+     - `accept: application/json`
+   - **Описание:** Этот запрос возвращает информацию о криптовалюте Cosmos (ATOM) в формате JSON.
+
+18. **Price (CoinGecko)**
+   - **URL:** `https://api.coingecko.com/api/v3/simple/price`
+   - **Метод:** GET
+   - **Параметры:**
+     - `ids=bitcoin,ethereum,gamestop-finance,bonfire`: Идентификаторы криптовалют (Bitcoin, Ethereum, GameStop Finance, Bonfire)
+     - `vs_currencies=usd,btc`: Валюты для сравнения (USD, BTC)
+     - `include_market_cap=true`: Включить рыночную капитализацию
+     - `include_24hr_vol=true`: Включить объем за 24 часа
+     - `include_last_updated_at=true`: Включить последнее обновление данных
+   - **Заголовки:**
+     - `accept: application/json`
+   - **Описание:** Этот запрос возвращает текущие цены, рыночную капитализацию, объем за 24 часа и время последнего обновления для указанных криптовалют в указанных валютах.
+
+19. **Chart (CoinGecko)**
+   - **URL:** `https://api.coingecko.com/api/v3/coins/castello-coin/market_chart`
+   - **Метод:** GET
+   - **Параметры:**
+     - `vs_currency=usd`: Валюта для сравнения (USD)
+     - `days=33`: Количество дней для отображения данных (33 дня)
+   - **Заголовки:**
+     - `accept: application/json`
+   - **Описание:** Этот запрос возвращает данные для построения графика рыночной цены Castello Coin (криптовалюта) за последние 33 дня.
+
+20. **All Cryptocurrencies (OLD)**:
+   - **URL**: `https://api.coinmarketcap.com/v1/ticker`
+   - **Метод**: GET
+   - **Параметры**:
+     - limit: -20
+     - convert: EURqqq
+   - **Описание**: Запрос данных о криптовалютах. Этот запрос может быть устаревшим, поскольку использует старый формат для получения информации о тикерах с ограничением до 20 записей и конвертацией в валюту EUR.
+
+21. **Latest rates**:
+   - **URL**: `https://openexchangerates.org/api/latest.json`
+   - **Метод**: GET
+   - **Параметры**:
+     - app_id: {{ _.oxr_app_id }}
+   - **Описание**: Запрос последних обновлений курсов валют.
+
+22. **Historical rates**:
+   - **URL**: `https://openexchangerates.org/api/historical/2012-01-22.json`
+   - **Метод**: GET
+   - **Параметры**:
+     - app_id: {{ _.oxr_app_id }}
+   - **Описание**: Получение исторических данных о курсах валют на определенную дату.
+
+23. **Get prices**:
+   - **URL**: `https://min-api.cryptocompare.com/data/pricemulti`
+   - **Метод**: GET
+   - **Параметры**:
+     - fsyms: safemoon
+     - tsyms: USD, BTC, EUR, RUB
+     - e: cccagg (выключен)
+   - **Описание**: Получение текущих цен на криптовалюту safemoon в различных валютах.
+
+24. **Get chart data**:
+   - **URL**: `min-api.cryptocompare.com/data/histohour`
+   - **Метод**: GET
+   - **Параметры**:
+     - fsym: safemoon
+     - tsym: USD
+     - limit: 10
+     - aggregate: 1 (выключен)
+     - e: CCCAGG (выключен)
+   - **Описание**: Получение данных для построения графика изменения цены safemoon за последние часы.
+
+25. **Get chart 5m**:
+   - **URL**: `min-api.cryptocompare.com/data/histominute`
+   - **Метод**: GET
+   - **Параметры**:
+     - fsym: safemoon
+     - tsym: USD
+     - limit: 20
+     - aggregate: 1 (выключен)
+     - e: CCCAGG (выключен)
+   - **Описание**: Получение данных для построения графика изменения цены safemoon за последние 5 минут.
+
+26. **Get chart data daily**:
+   - **URL**: `min-api.cryptocompare.com/data/histoday`
+   - **Метод**: GET
+   - **Параметры**:
+     - fsym: WIN
+     - tsym: RUB
+     - limit: 10
+     - aggregate: 1 (выключен)
+     - e: CCCAGG (выключен)
+   - **Описание**: Получение данных для построения графика изменения цены WIN (видимо, криптовалюта) за последние дни.
+
+27. **Coin list**:
+   - **URL**: `https://min-api.cryptocompare.com/data/all/coinlist`
+   - **Метод**: GET
+   - **Параметры**: (нет)
+   - **Описание**: Получение списка всех доступных криптовалют.
+
+28. **News sources**:
+   - **URL**: `https://min-api.cryptocompare.com/data/news/feedsandcategories`
+   - **Метод**: GET
+   - **Параметры**: (нет)
+   - **Описание**: Получение источников новостей о криптовалютах.
+
+29. **Get news**:
+    - **URL**: `https://min-api.cryptocompare.com/data/v2/news/`
+    - **Метод**: GET
+    - **Параметры**:
+      - feeds: coindesk
+    - **Описание**: Получение новостей о криптовалютах от coindesk.
+
+
+
